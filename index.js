@@ -1,32 +1,27 @@
-﻿const data = [
-  {
-    product:'молочко', price:40, count:2
-  },
-  {
-    product:'картошечка', price:14, count:10
-  },
-  {
-    product:'минералочка', price:29, count:2
-  },
-  {
-    product:'хлебушек', price:19, count:1
-  },
-  {
-    product:'конфетки', price:11, count:15
+﻿var min=1;
+var max=11;
+const array = [];
+
+function getRandom(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
+function generateRandom(min, max) {
+  let number;
+  for (let i=0; i<7; i++) {
+    number = getRandom(min, max);
+    if (array.includes(number)) {
+      i--;
+    } else {
+      array.push(number);
+    }
   }
-];
+  return array;
+}
 
-var koshel = prompt('сколько денег?');
-var sumOnOneDay = 0;
-data.forEach(function(item) {
-  sumOnOneDay = item.price*item.count + sumOnOneDay
+console.log(generateRandom(min, max));
+
+array.sort(function(a, b) {
+  return a - b;
 });
-console.log('в один день тратится -> ' + sumOnOneDay);
-var daysSurvive = Math.floor(koshel/sumOnOneDay);
-console.log('прожитых дней -> ' + daysSurvive);
-var ostatok = koshel - daysSurvive*sumOnOneDay;
-console.log('остаток -> ' + ostatok);
-
-alert('Семья Петровичей на указанную сумму сможет прожить ' + daysSurvive + ' дней');
-alert('Остаток: ' + ostatok + ' рублей');
-
+console.log(array);
