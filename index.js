@@ -1,4 +1,5 @@
 let tabButtonElement1 = document.querySelector('.tab-btn-1');
+let tabButtonElement1 = document.querySelector('.tab-btn-1');
 let tabButtonElement2 = document.querySelector('.tab-btn-2');
 let tabButtonElement3 = document.querySelector('.tab-btn-3');
 
@@ -8,7 +9,9 @@ let tabContentElement3 = document.querySelector('.tab-cont-3');
 
 let closeTabContElem = document.querySelectorAll('.close-btn');
 
-let closeTabElem = document.querySelectorAll('.close-tab');
+let closeTab1Elem = document.querySelector('.close-tab-1');
+let closeTab2Elem = document.querySelector('.close-tab-2');
+let closeTab3Elem = document.querySelector('.close-tab-3');
 
 tabButtonElement1.addEventListener ('click', function () {
   let activeTabElement = document.querySelector('.active-tab');
@@ -45,8 +48,23 @@ for (let i of closeTabContElem) {
   })
 }
 
-for (let i of closeTabElem) {
-  i.addEventListener ('click', function() {
-    i.parentElement.classList.add('hidden-tab');
-  })
-}
+closeTab1Elem.addEventListener('click', function() {
+  if (closeTab2Elem || closeTab3Elem) {
+    closeTab1Elem.parentElement.remove();
+    tabContentElement1.remove();
+  }
+})
+
+closeTab2Elem.addEventListener('click', function() {
+  if (closeTab1Elem || closeTab3Elem) {
+    closeTab2Elem.parentElement.remove();
+    tabContentElement2.remove();
+  }
+})
+
+closeTab3Elem.addEventListener('click', function() {
+  if (closeTab1Elem || closeTab2Elem) {
+    closeTab3Elem.parentElement.remove();
+    tabContentElement3.remove();
+  }
+})
