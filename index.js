@@ -1,17 +1,18 @@
-let tabButtonElement1 = document.querySelector('.tab-btn-1');
-let tabButtonElement1 = document.querySelector('.tab-btn-1');
-let tabButtonElement2 = document.querySelector('.tab-btn-2');
-let tabButtonElement3 = document.querySelector('.tab-btn-3');
+const tabButtonElement1 = document.querySelector('.tab-btn-1');
+const tabButtonElement2 = document.querySelector('.tab-btn-2');
+const tabButtonElement3 = document.querySelector('.tab-btn-3');
 
-let tabContentElement1 = document.querySelector('.tab-cont-1');
-let tabContentElement2 = document.querySelector('.tab-cont-2');
-let tabContentElement3 = document.querySelector('.tab-cont-3');
+const tabContentElement1 = document.querySelector('.tab-cont-1');
+const tabContentElement2 = document.querySelector('.tab-cont-2');
+const tabContentElement3 = document.querySelector('.tab-cont-3');
 
-let closeTabContElem = document.querySelectorAll('.close-btn');
+const closeTabContElem = document.querySelectorAll('.close-btn');
 
-let closeTab1Elem = document.querySelector('.close-tab-1');
-let closeTab2Elem = document.querySelector('.close-tab-2');
-let closeTab3Elem = document.querySelector('.close-tab-3');
+const closeTab1Elem = document.querySelector('.close-tab-1');
+const closeTab2Elem = document.querySelector('.close-tab-2');
+const closeTab3Elem = document.querySelector('.close-tab-3');
+
+const tabBTNs = document.querySelectorAll('.tab-button').length;
 
 tabButtonElement1.addEventListener ('click', function () {
   let activeTabElement = document.querySelector('.active-tab');
@@ -49,22 +50,26 @@ for (let i of closeTabContElem) {
 }
 
 closeTab1Elem.addEventListener('click', function() {
-  if (closeTab2Elem || closeTab3Elem) {
+  if (tabBTNs > 1) {
     closeTab1Elem.parentElement.remove();
     tabContentElement1.remove();
+    tabBTNs--;
   }
 })
 
 closeTab2Elem.addEventListener('click', function() {
-  if (closeTab1Elem || closeTab3Elem) {
+  if (tabBTNs > 1) {
     closeTab2Elem.parentElement.remove();
     tabContentElement2.remove();
+    tabBTNs--;
   }
 })
 
 closeTab3Elem.addEventListener('click', function() {
-  if (closeTab1Elem || closeTab2Elem) {
+  if (tabBTNs > 1) {
     closeTab3Elem.parentElement.remove();
     tabContentElement3.remove();
+    tabBTNs--;
   }
 })
+
