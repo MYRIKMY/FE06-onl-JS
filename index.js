@@ -61,7 +61,7 @@ okElement.addEventListener ('click', function () {
   surnsmeElement.value = '';
   ageElement.value = '';
   
-  what();
+  buildingATable();
 })
 
 for (let i = 0; i < info.length; i++) {
