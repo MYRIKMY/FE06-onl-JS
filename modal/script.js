@@ -33,7 +33,7 @@ for (let i of closeElement) {
     surnsmeElement.value = '';
     ageElement.value = '';
 
-    modalElement.style.display='none';
+    modalElement.classList.add('hidden');
   })
 }
 
