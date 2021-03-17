@@ -1,13 +1,13 @@
-let addUserElement = document.querySelector('.add-user');
-let modalElement = document.querySelector('.modal');
-let closeElement = document.querySelectorAll('.close');
-let okElement = document.querySelector('.ok');
-let nameElement = document.querySelector('.first-name');
-let surnsmeElement = document.querySelector('.last-name');
-let ageElement = document.querySelector('.age');
-let tableElement = document.querySelector('.table');
+const addUserElement = document.querySelector('.add-user');
+const modalElement = document.querySelector('.modal');
+const closeElement = document.querySelectorAll('.close');
+const okElement = document.querySelector('.ok');
+const nameElement = document.querySelector('.first-name');
+const surnsmeElement = document.querySelector('.last-name');
+const ageElement = document.querySelector('.age');
+const tableElement = document.querySelector('.table');
 
-let data = [
+const data = [
   {
     firstName: 'Ashton',
     lastName: 'Kutcher',
@@ -38,14 +38,14 @@ for (let i of closeElement) {
 }
 
 okElement.addEventListener ('click', function () {
-  let trElem = document.createElement("tr");
-  let dataFirstName = nameElement.value;
-  let dataLastName = surnsmeElement.value;
-  let dataAge = ageElement.value;
+  const trElem = document.createElement("tr");
+  const dataFirstName = nameElement.value;
+  const dataLastName = surnsmeElement.value;
+  const dataAge = ageElement.value;
 
-  let dataFirstNameCell = document.createElement("td");
-  let dataLastNameCell = document.createElement("td");
-  let dataAgeCell = document.createElement("td");
+  const dataFirstNameCell = document.createElement("td");
+  const dataLastNameCell = document.createElement("td");
+  const dataAgeCell = document.createElement("td");
 
   dataFirstNameCell.appendChild(document.createTextNode(dataFirstName));
   dataLastNameCell.appendChild(document.createTextNode(dataLastName));
@@ -70,14 +70,14 @@ okElement.addEventListener ('click', function () {
 })
 
 for (var i = 0; i < data.length; i++) {
-  let trElem = document.createElement("tr");
-  let dataFirstName = data[i].firstName;
-  let dataLastName = data[i].lastName;
-  let dataAge = data[i].age;
+  const trElem = document.createElement("tr");
+  const dataFirstName = data[i].firstName;
+  const dataLastName = data[i].lastName;
+  const dataAge = data[i].age;
 
-  let dataFirstNameCell = document.createElement("td");
-  let dataLastNameCell = document.createElement("td");
-  let dataAgeCell = document.createElement("td");
+  const dataFirstNameCell = document.createElement("td");
+  const dataLastNameCell = document.createElement("td");
+  const dataAgeCell = document.createElement("td");
 
   dataFirstNameCell.appendChild(document.createTextNode(dataFirstName));
   dataLastNameCell.appendChild(document.createTextNode(dataLastName));
