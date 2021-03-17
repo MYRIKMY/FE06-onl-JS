@@ -1,0 +1,91 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style-type: none;
+}
+.container {
+  margin: 0 auto;
+  padding: 0 15px;
+  max-width: 1170px;
+}
+body {
+  padding: 30px;
+}
+.tab-content {
+  display: none;
+  position: relative;
+  border: 2px dashed black;
+  width: 100%;
+  height: 500px;
+}
+.active-tab {
+  display: block;
+}
+.close-btn {
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 50%;
+  background-color: white;
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  font-size: 16px;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+}
+.tab-cont-1 {
+  background-color: aqua;
+  background-image: url('img/кот.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.tab-cont-2 {
+  background-color: blueviolet;
+  background-image: url('img/кот.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.tab-cont-3 {
+  background-color: burlywood;
+  background-image: url('img/кот.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.tab-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+.tab-button {
+  cursor: pointer;
+  width: 0; 
+  height: 0; 
+  border-width: 50px 30px 20px;
+  border-style: solid;
+  border-color: rgb(148, 245, 148) rgb(182, 148, 245) transparent;
+  margin: 20px 40px;
+  position: relative;
+  display: block;
+}
+.close-tab {
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 50%;
+  background-color: white;
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  font-size: 16px;
+  position: absolute;
+  top: -60px;
+  right: -40px;
+  display: none;
+}
+.hidden-tab {
+  display: none;
+}
+.tab-button:hover .close-tab {
+  display: block;
+}
