@@ -8,16 +8,16 @@
 должен быть записан в локальноехранилище.
 */
 
-let addUserElement = document.querySelector('.add-user');
-let modalElement = document.querySelector('.modal');
-let closeElement = document.querySelectorAll('.close');
-let okElement = document.querySelector('.ok');
-let nameElement = document.querySelector('.first-name');
-let surnsmeElement = document.querySelector('.last-name');
-let ageElement = document.querySelector('.age');
-let tableElement = document.querySelector('.table');
+const addUserElement = document.querySelector('.add-user');
+const modalElement = document.querySelector('.modal');
+const closeElement = document.querySelectorAll('.close');
+const okElement = document.querySelector('.ok');
+const nameElement = document.querySelector('.first-name');
+const surnsmeElement = document.querySelector('.last-name');
+const ageElement = document.querySelector('.age');
+const tableElement = document.querySelector('.table');
 
-let info = [
+const info = [
   {
     firstName: 'Ashton',
     lastName: 'Kutcher',
@@ -68,24 +68,24 @@ for (let i = 0; i < info.length; i++) {
   localStorage.setItem(i, JSON.stringify(info[i]));
 }
 
-function what() {
-  let forClear = document.querySelectorAll('tr');
+function buildingATable() {
+  const forClear = document.querySelectorAll('tr');
   for (let i = 1; i < forClear.length; i++) {
     forClear[i].remove();
   }
 
   for (let i = 0; i < localStorage.length; i++) {
-    let item = JSON.parse(localStorage.getItem(i));
+    const item = JSON.parse(localStorage.getItem(i));
     console.log(item);
-    let trElem = document.createElement("tr");
+    const trElem = document.createElement("tr");
 
-    let dataFirstName = item.firstName;
-    let dataLastName = item.lastName;
-    let dataAge = item.age;
+    const dataFirstName = item.firstName;
+    const dataLastName = item.lastName;
+    const dataAge = item.age;
 
-    let dataFirstNameCell = document.createElement("td");
-    let dataLastNameCell = document.createElement("td");
-    let dataAgeCell = document.createElement("td");
+    const dataFirstNameCell = document.createElement("td");
+    const dataLastNameCell = document.createElement("td");
+    const dataAgeCell = document.createElement("td");
 
     dataFirstNameCell.appendChild(document.createTextNode(dataFirstName));
     dataLastNameCell.appendChild(document.createTextNode(dataLastName));
@@ -99,4 +99,4 @@ function what() {
   }
 };
 
-what();
+buildingATable();
