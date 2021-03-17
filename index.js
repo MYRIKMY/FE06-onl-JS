@@ -235,7 +235,7 @@ const filterBTNElement = document.querySelector('.filter');
 
 const tableElement = document.querySelector('table');
 
-(function crceateTableHead() {
+function crceateTableHead() {
   const dataItemKeys = Object.keys(data[0]);
   let trElem = document.createElement('tr');
   for (let i of dataItemKeys) {
@@ -245,7 +245,9 @@ const tableElement = document.querySelector('table');
     trElem.appendChild(dataItemCell);
     tableElement.appendChild(trElem);
   }
-}())
+}
+
+crceateTableHead();
 
 function createTable(data) {
   for (let obj of data) {
@@ -262,15 +264,15 @@ function createTable(data) {
 
 function removeTable() {
   let toRemove = document.querySelectorAll('td');
-  for (let i of toRemove) {
-    i.remove();
+  for (let itemToRemove of toRemove) {
+    itemToRemove.remove();
   }
 }
 
 (function () {
   let arr = [];
-  for (let obj of data) {
-    let item = obj.type;
+  for (let object of data) {
+    let item = object.type;
     if (!arr.includes(item)) {
       arr.push(item);
     }
