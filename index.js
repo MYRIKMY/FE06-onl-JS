@@ -1,102 +1,51 @@
 /*
-Задание! Записываем в локальное хранилище данные пользователей.
-● Возьмем таблицу из самостоятельного задания 8 урока;
-● При загрузке страницы проверим есть ли данные в локальном хранилище;
-● Если да, то выведем содержимое, если нет - выводим объект по-умолчанию, 
-и записываем в localstorage;
-★ Добавим функционал добавления пользователя, новый пользователь так же 
-должен быть записан в локальноехранилище.
+Создать одну лошадь.
+● Для начала создадим функцию, которая будет принимать два параметра: 
+имя скакуна, и время его финиширования (задаем вручную);
+● Функция должна возвращать промис, который через заданное время, будет 
+выводить окно alert, сообщающее что лошадь по кличке “имя скакуна” 
+финишировал за “время” секунд;
+
+Добавим ещё пару лошадей.
+● Создать цикл из трех итераций, в каждой из которых будет 
+запускаться функцию-промис, принимающая имя скакуна, и время его финиширования;
+● Выведем окно alert, сообщающее что скакун “имя скакуна” финишировал 
+за за “время” секунд;
+
+Поменяем время на случайное.
+● Создадим новую функцию, которая будет генерировать случайное время от 
+0 до 5 секунд;
+● Заменим параметр “время” на случайное;
 */
 
-let addUserElement = document.querySelector('.add-user');
-let modalElement = document.querySelector('.modal');
-let closeElement = document.querySelectorAll('.close');
-let okElement = document.querySelector('.ok');
-let nameElement = document.querySelector('.first-name');
-let surnsmeElement = document.querySelector('.last-name');
-let ageElement = document.querySelector('.age');
-let tableElement = document.querySelector('.table');
+const лошадки = [
+  {'имяСкакуна' : 'Первый',
+  'времяФиниширования' : 10
+} , {
+  'имяСкакуна' : 'Второй',
+  'времяФиниширования' : 2
+} , {
+  'имяСкакуна' : 'Третий',
+  'времяФиниширования' : 7}
+]
 
-let info = [
-  {
-    firstName: 'Ashton',
-    lastName: 'Kutcher',
-    age: 40
-  }, {
-    firstName: 'Bradley',
-    lastName: 'Pitt',
-    age: 54
-  }, {
-    firstName: 'Hannah',
-    lastName: 'Dakota',
-    age: 24
-  }
-];
-
-addUserElement.addEventListener ('click', function () {
-  modalElement.style.display='block';
-})
-
-for (let i of closeElement) {
-  i.addEventListener ('click', function () {
-    nameElement.value = '';
-    surnsmeElement.value = '';
-    ageElement.value = '';
-
-    modalElement.style.display='none';
+function создаемЛошадь(имяСкакуна, времяФиниширования) {
+  return new Promise(function (resolve, reject) {
+    setTimeout(function () {
+      resolve(имяСкакуна + ' финишировал в ' + времяФиниширования + 'сек');
+    }, времяФиниширования*1000);
   })
 }
 
-okElement.addEventListener ('click', function () {
-  let count = localStorage.length;
-
-  let o = {};
-  o['firstName']=nameElement.value;
-  o['lastName']=surnsmeElement.value;
-  o['age']=ageElement.value;
-
-  localStorage.setItem(count, JSON.stringify(o));
-
-  nameElement.value = '';
-  surnsmeElement.value = '';
-  ageElement.value = '';
-  
-  what();
-})
-
-for (let i = 0; i < info.length; i++) {
-  localStorage.setItem(i, JSON.stringify(info[i]));
+async function foo(имяСкакуна, времяФиниширования) {
+  let str = await создаемЛошадь(имяСкакуна, времяФиниширования);
+  alert(str);
 }
 
-function what() {
-  let forClear = document.querySelectorAll('tr');
-  for (let i = 1; i < forClear.length; i++) {
-    forClear[i].remove();
-  }
+function случайноеВремя() {
+  return Math.floor(Math.random() * 5);
+}
 
-  for (let i = 0; i < localStorage.length; i++) {
-    let item = JSON.parse(localStorage.getItem(i));
-    console.log(item);
-    let trElem = document.createElement("tr");
-
-    let dataFirstName = item.firstName;
-    let dataLastName = item.lastName;
-    let dataAge = item.age;
-
-    let dataFirstNameCell = document.createElement("td");
-    let dataLastNameCell = document.createElement("td");
-    let dataAgeCell = document.createElement("td");
-
-    dataFirstNameCell.appendChild(document.createTextNode(dataFirstName));
-    dataLastNameCell.appendChild(document.createTextNode(dataLastName));
-    dataAgeCell.appendChild(document.createTextNode(dataAge));
-
-    trElem.appendChild(dataFirstNameCell);
-    trElem.appendChild(dataLastNameCell);
-    trElem.appendChild(dataAgeCell);
-
-    tableElement.appendChild(trElem);
-  }
-};
-
-what();
+for (let i = 0; i < лошадки.length; i++) {
+  foo(лошадки[i].имяСкакуна, случайноеВремя())
+}
