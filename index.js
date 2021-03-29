@@ -18,34 +18,34 @@
 ● Заменим параметр “время” на случайное;
 */
 
-const лошадки = [
-  {'имяСкакуна' : 'Первый',
-  'времяФиниширования' : 10
+const horses = [
+  {'horseName' : 'Первый',
+  'finishTime' : 10
 } , {
-  'имяСкакуна' : 'Второй',
-  'времяФиниширования' : 2
+  'horseName' : 'Второй',
+  'finishTime' : 2
 } , {
-  'имяСкакуна' : 'Третий',
-  'времяФиниширования' : 7}
+  'horseName' : 'Третий',
+  'finishTime' : 7}
 ]
 
-function создаемЛошадь(имяСкакуна, времяФиниширования) {
+function создаемЛошадь(horseName, finishTime) {
   return new Promise(function (resolve, reject) {
     setTimeout(function () {
-      resolve(имяСкакуна + ' финишировал в ' + времяФиниширования + 'сек');
-    }, времяФиниширования*1000);
+      resolve(horseName + ' финишировал в ' + finishTime + 'сек');
+    }, finishTime*1000);
   })
 }
 
-async function foo(имяСкакуна, времяФиниширования) {
-  let str = await создаемЛошадь(имяСкакуна, времяФиниширования);
+async function foo(horseName, finishTime) {
+  let str = await создаемЛошадь(horseName, finishTime);
   alert(str);
 }
 
-function случайноеВремя() {
+function randomTime() {
   return Math.floor(Math.random() * 5);
 }
 
-for (let i = 0; i < лошадки.length; i++) {
-  foo(лошадки[i].имяСкакуна, случайноеВремя())
+for (let i = 0; i < horses.length; i++) {
+  foo(horses[i].horseName, randomTime())
 }
