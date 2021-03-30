@@ -1,51 +1,168 @@
-/*
-Создать одну лошадь.
-● Для начала создадим функцию, которая будет принимать два параметра: 
-имя скакуна, и время его финиширования (задаем вручную);
-● Функция должна возвращать промис, который через заданное время, будет 
-выводить окно alert, сообщающее что лошадь по кличке “имя скакуна” 
-финишировал за “время” секунд;
+const token = `https://605d90809386d200171bac86.mockapi.io/api/project-1/users/`;
 
-Добавим ещё пару лошадей.
-● Создать цикл из трех итераций, в каждой из которых будет 
-запускаться функцию-промис, принимающая имя скакуна, и время его финиширования;
-● Выведем окно alert, сообщающее что скакун “имя скакуна” финишировал 
-за за “время” секунд;
+const getAllUsersBtnElement = document.querySelector(`.get-all-users`);
+const getUserBtnElement = document.querySelector(`.get-user`);
+const updateUserBtnElement = document.querySelector(`.update-user`);
+const createUserBtnElement = document.querySelector(`.create-user`);
+const deleteUserBtnElement = document.querySelector(`.delete-user`);
 
-Поменяем время на случайное.
-● Создадим новую функцию, которая будет генерировать случайное время от 
-0 до 5 секунд;
-● Заменим параметр “время” на случайное;
-*/
+const userIdElement = document.querySelector(`.user-id`);
 
-const лошадки = [
-  {'имяСкакуна' : 'Первый',
-  'времяФиниширования' : 10
-} , {
-  'имяСкакуна' : 'Второй',
-  'времяФиниширования' : 2
-} , {
-  'имяСкакуна' : 'Третий',
-  'времяФиниширования' : 7}
-]
+const userPhoneElement = document.querySelector(`.phone-value`);
+const userNameElement = document.querySelector(`.name-value`);
+const userEmailElement = document.querySelector(`.email-value`);
+const userAvatarElement = document.querySelector(`.avatar-value`);
 
-function создаемЛошадь(имяСкакуна, времяФиниширования) {
-  return new Promise(function (resolve, reject) {
-    setTimeout(function () {
-      resolve(имяСкакуна + ' финишировал в ' + времяФиниширования + 'сек');
-    }, времяФиниширования*1000);
+const formElement = document.querySelector('.form');
+const clearBtn = document.querySelector('.clear');
+
+clearBtn.addEventListener('click', cleaningWorkspace);
+
+getAllUsersBtnElement.addEventListener('click', function() {
+  fetch(`${token}`)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      createTable(data, 'allUsers');
+      return data;
+    })
+    .then(formElement.reset())
+})
+
+getUserBtnElement.addEventListener('click', function() {
+  const userId = userIdElement.value;
+  fetch(`${token}${userId}`)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      createTable(data, 'only');
+      return data;
+    })
+    .then(userData => {
+      userPhoneElement.value = userData.phone;
+      userNameElement.value = userData.name;
+      userEmailElement.value = userData.email;
+      userAvatarElement.value = userData.avatar;
+    });
+})
+
+deleteUserBtnElement.addEventListener('click', function() {
+  const userId = userIdElement.value;
+  fetch(`${token}${userId}`, {
+    method: 'DELETE',
+  });
+  cleaningWorkspace();
+})
+
+updateUserBtnElement.addEventListener('click', function() {
+  const userId = userIdElement.value;
+  const userData = getUserFromForm();
+  console.log(userData);
+
+  fetch(`${token}${userId}`, {
+    method: 'PUT',
+    body: JSON.stringify(userData),
+    headers: {
+      'Content-Type': 'application/json'
+    }
   })
+
+  cleaningWorkspace();
+})
+
+createUserBtnElement.addEventListener('click', function() {
+  const userData = getUserFromForm();
+  fetch(`${token}`, {
+    method: 'POST',
+    body: JSON.stringify(userData),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+
+  cleaningWorkspace();
+})
+
+function cleaningWorkspace() {
+  formElement.reset();
+  clearTable();
+}
+function createTableHead (arr, parent) {
+  const trElem = document.createElement('tr')
+  for (let i of arr) {
+    let dataItem = i;
+    let dataItemCell = document.createElement('th');
+    dataItemCell.appendChild(document.createTextNode(dataItem.toUpperCase()));
+    trElem.appendChild(dataItemCell);
+  }
+
+  parent.appendChild(trElem);
+}
+function tableBodyLogic(info) {
+  let trElem = document.createElement('tr');
+  for (let key in info) {
+    if (key != 'avatar') {
+      let dataItem = info[key];
+      let dataItemCell = document.createElement('td');
+      dataItemCell.appendChild(document.createTextNode(dataItem));
+      trElem.appendChild(dataItemCell);
+    } else {
+      let dataItem = info['avatar'];
+      let dataItemCell = document.createElement('td');
+      let image = document.createElement('img');
+      image.src = dataItem;
+      image.alt = 'photo';
+      dataItemCell.appendChild(image);
+      trElem.appendChild(dataItemCell);
+    }
+  }
+  return trElem;
+}
+function createTableBody(info, parent, howManyUsers) {
+  if (howManyUsers == 'only') {
+    parent.appendChild(tableBodyLogic(info))
+  } else {
+    for (let obj of info) {
+      parent.appendChild(tableBodyLogic(obj))
+  }
+}}
+function clearTable() {
+  const clear = document.querySelectorAll('tr');
+  for (let i = 0; i < clear.length; i++) {
+    clear[i].remove();
+  }
+}
+function createTable(info, howManyUsers) {
+  clearTable();
+
+  const tableCreated = document.createElement('table');
+
+  let headers;
+  if (howManyUsers == 'only') {
+    headers = Object.keys(info);
+    createTableHead(headers, tableCreated);
+    createTableBody(info, tableCreated, 'only');
+  } else {
+    headers = Object.keys(info[0]);
+    createTableHead(headers, tableCreated);
+    createTableBody(info, tableCreated, 'allUsers');
+  }
+
+  const plaseTableHere = document.querySelector('body');
+  plaseTableHere.appendChild(tableCreated);
 }
 
-async function foo(имяСкакуна, времяФиниширования) {
-  let str = await создаемЛошадь(имяСкакуна, времяФиниширования);
-  alert(str);
-}
-
-function случайноеВремя() {
-  return Math.floor(Math.random() * 5);
-}
-
-for (let i = 0; i < лошадки.length; i++) {
-  foo(лошадки[i].имяСкакуна, случайноеВремя())
+function getUserFromForm() {
+  const userData = {};
+  const formData = new FormData(formElement)
+  
+  for (let [key, val] of formData.entries()) {
+    userData[key] = val; 
+  }
+  
+  return userData;
 }

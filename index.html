@@ -1,13 +1,28 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript</title>
   <link rel="stylesheet" href="index.css">
-  <title>less 12</title>
 </head>
 <body>
-<script src="index.js"></script>
+	<button class="get-all-users">Get all users</button>
+	<button class="get-user">Get User By ID</button>
+	<button class="update-user">Update User</button>
+	<button class="create-user">Create User</button>
+	<button class="delete-user">Delete User</button>
+  <button class="clear">Restart page</button>
+	<hr />
+  <form name="user" class="form">
+    <label> user id <input name="id" type="number" class='user-id'></label>
+    <label> name <input name="name" type="text" class="name-value"></label>
+    <label> phone <input name="phone" type="text" class="phone-value"></label>
+    <label> email <input name="email" type="text" class="email-value"></label>
+    <label> avatar <input name="avatar" type="text" class="avatar-value"></label>
+  </form>
+
+	<script src="index.js"></script>
 </body>
-</html> 
+</html>
